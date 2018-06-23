@@ -1,3 +1,3 @@
 # How to contribute
 
-The files in this repository are used as the starting point for all students. Because we want students to write the majority of the code themselves, pull requests (most likely) will _not_ be merged into the project.
+This repository is my project for Udacity's Front End Develop course. Please feel free to commit and pull request to improve this project. I am still learning a lot of things about the HTML, CSS, Javascript, jQuery.
