@@ -107,3 +107,49 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.gameOver {
+  display: none;
+  text-align: center;
+  margin-top: 400px;
+}
+
+.gameOverTitle {
+  font-size: 50px;
+  font-family: 'Eater', serif;
+}
+
+.gameWon {
+  display: none;
+  text-align: center;
+  margin-top: 400px;
+}
+
+.gameWonTitle {
+  font-size: 50px;
+  font-family: 'Eater', serif;
+  margin-bottom: 10px;
+}
+
+.movesStars {
+  font-size: 20px;
+  margin-top: 5px;
+}
+
+.restartButton {
+  background-color: #ACAF50;
+  border: none;
+  color: white;
+  padding: 14px 40px;
+  text-align: center;
+  font-size: 24px;
+  text-decoration: none;
+  border-radius: 12px;
+  box-shadow: 0 8px 16px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
+  transition: 0.5s;
+}
+
+.restartButton:hover {
+  background-color: white;
+  color: black;
+}
