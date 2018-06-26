@@ -7,15 +7,10 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+This game is to find matching card. You choose two cards and they will be compared each other automatically. 
+If the cards are matched, they will be flipped over. You only have 30 chances to find matching cards. After you choose the card 30 times, the game will be over. You need to press the restart button and it will restart.   
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
-
-For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
+This repository is my project for Udacity's Front End Develop course. Please feel free to commit and pull request to improve this project. I am still learning a lot of things about the HTML, CSS, Javascript, jQuery. 
 # udacity_memory_game
