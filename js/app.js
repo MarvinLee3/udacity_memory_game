@@ -46,7 +46,6 @@ let cardList = [
   'fa fa-cube'
 ]
 let shuffleCards = shuffle(cardList);
-//cardElements doesn't have node list.
 let cardElements = document.querySelectorAll('li.card');
 let decks = document.querySelector(".deck");
 let openCardList = [];
@@ -64,6 +63,7 @@ let movesStars = document.querySelector(".movesStars");
 let totalSeconds = 0;
 let minutes = document.getElementById("minutes");
 let seconds = document.getElementById("seconds");
+
 
 //Display cards
 function displayCard() {
@@ -109,8 +109,10 @@ function handleCardOnClick() {
     };
 };
 
+
 //Refresh the game
 refreshGame.addEventListener('click', restartGame, false);
+
 
 /**
 * elements = array
@@ -128,12 +130,14 @@ function addElementClasses(elements, classes) {
   });
 };
 
+
 //Count moves
 function countMoves () {
   numMoves++;
   moves.innerHTML = numMoves;
   starRemove();
 };
+
 
 //Timer
 function pad (val) {
@@ -171,6 +175,8 @@ function starRemove () {
   };
 };
 
+
+//Congratulations Popup
 function winGame() {
   if (matchedCardList.length === 16) {
     let messageForWinner = document.createTextNode("With " + numMoves + " Moves and " + numStars + " Stars.");
@@ -181,11 +187,13 @@ function winGame() {
   };
 };
 
+
 //The game is over
 function gameOver() {
   containers.style.display = "none";
   gameOvers.style.display = "block";
 };
+
 
 //restart game
 function restartGame() {
@@ -203,6 +211,8 @@ function restartGame() {
   openCardList = [];
   marchedCardList =[];
 };
+
+
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
