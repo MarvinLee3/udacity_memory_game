@@ -26,31 +26,58 @@ function shuffle(array) {
     return array;
 }
 
-// cardElements for for loop
-const cardElements = document.querySelectorAll('li.card');
 // Make an array for cards and shuffle the cards
-let listOfCardClasses = [...cardElements];
-let shuffleCards = shuffle(listOfCardClasses);
-
-//Changed variable
+let cardList = [
+  'fa fa-diamond',
+  'fa fa-paper-plane-o',
+  'fa fa-anchor',
+  'fa fa-bolt',
+  'fa fa-cube',
+  'fa fa-anchor',
+  'fa fa-leaf',
+  'fa fa-bicycle',
+  'fa fa-diamond',
+  'fa fa-bomb',
+  'fa fa-leaf',
+  'fa fa-bomb',
+  'fa fa-bolt',
+  'fa fa-bicycle',
+  'fa fa-paper-plane-o',
+  'fa fa-cube'
+]
+let shuffleCards = shuffle(cardList);
+//cardElements doesn't have node list.
+let cardElements = document.querySelectorAll('li.card');
+let decks = document.querySelector(".deck");
 let openCardList = [];
 let matchedCardList = [];
+let nums;
 const moves = document.querySelector(".moves");
 let numMoves = moves.textContent;
 const stars = document.querySelector(".stars");
 let numStars = 0;
 const containers = document.querySelector(".container");
 const gameOvers = document.querySelector(".gameOver");
-let nums;
 const refreshGame = document.querySelector('.restart')
 const gameWons = document.querySelector(".gameWon");
 let movesStars = document.querySelector(".movesStars");
+let totalSeconds = 0;
+let minutes = document.getElementById("minutes");
+let seconds = document.getElementById("seconds");
 
-//open cards
-for (let i = 0; i < cardElements.length; i++) {
-    // false, it's there to prevent bubling
-   cardElements[i].addEventListener("click", handleCardOnClick, false);
+//Display cards
+function displayCard() {
+  for (let c = 0; c < shuffleCards.length; c++) {
+    let createLi = document.createElement('li');
+    createLi.className = 'card';
+    let createIi = document.createElement('i');
+    createIi.className = shuffleCards[c];
+    createLi.appendChild(createIi);
+    decks.appendChild(createLi);
+    createLi.addEventListener("click", handleCardOnClick, false);
+  };
 };
+
 
 //compare the cards (match and unmatch)
 function handleCardOnClick() {
@@ -108,6 +135,16 @@ function countMoves () {
   starRemove();
 };
 
+//Timer
+function pad (val) {
+  return val > 9 ? val : "0" + val;
+};
+setInterval(function() {
+  seconds.innerHTML = pad(++totalSeconds%60);
+  minutes.innerHTML = pad(parseInt(totalSeconds/60, 10));
+}, 1000);
+
+
 //deduct stars when
 //1 star will be deducted when move 10 times
 //2 star will be deducted when move 20 times
@@ -136,7 +173,7 @@ function starRemove () {
 
 function winGame() {
   if (matchedCardList.length === 16) {
-    let messageForWinner = document.createTextNode("With " + numMoves + " Moves and " + numStars + " Stars.")
+    let messageForWinner = document.createTextNode("With " + numMoves + " Moves and " + numStars + " Stars.");
     movesStars.appendChild(messageForWinner);
     containers.style.display = "none";
     gameOvers.style.display = "none";
@@ -154,11 +191,12 @@ function gameOver() {
 function restartGame() {
   containers.style.display ="flex";
   gameOvers.style.display = "none";
+  gameWons.style.display = "none";
   stars.innerHTML = '<li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li> <li><i class="fa fa-star"></i></li>';
   numMoves = 0;
   moves.innerText = numMoves;
-  //I would like to shuffle card when restart the game. Right now array is shuffled but not html. How can I shuffle the card in HTML?
-  shuffleCards;
+  location.reload();
+  displayCard();
   console.log(shuffleCards);
   removeElementClasses(openCardList, ["show", "open"]);
   removeElementClasses(matchedCardList, ["match"]);
