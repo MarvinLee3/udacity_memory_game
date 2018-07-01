@@ -19,4 +19,4 @@ This repository is my project for Udacity's Front End Develop course. Please fee
 
 1. folk this repository and clone or download
 2. Navigate to the directory where it is cloned or downloaded
-3. Open index.html (To open the game) 
+3. Open index.html (To open the game)

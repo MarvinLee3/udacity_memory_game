@@ -82,29 +82,28 @@ function displayCard() {
 //compare the cards (match and unmatch)
 function handleCardOnClick() {
     console.log(this)
-    // "this" is currently clicked card : how can it be "this" to clicked card?
-    // you can store it in variable if it's cofusing to you
     const thisCard = this;
-    thisCard.classList.add("open", "show");
-    openCardList.push(thisCard);
-    nums = openCardList.length;
-    if (nums === 2) {
-      countMoves();
-      if (openCardList[0].innerHTML === openCardList[1].innerHTML) {
-        // you could move repeatitive code into the function see removeClass i have created for you
-        removeElementClasses(openCardList, ["show", "open"]);
-        addElementClasses(openCardList, ["match"]);
-        matchedCardList.push(openCardList[0]);
-        matchedCardList.push(openCardList[1]);
-        openCardList = [];
-        winGame();
-        console.log(matchedCardList);
-      } else {
-        setTimeout(function() {
-          openCardList[0].classList.remove("open", "show");
-          openCardList[1].classList.remove("open", "show");
+    if (!(thisCard.classList.contains("open", "show"))) {
+      thisCard.classList.add("open", "show");
+      openCardList.push(thisCard);
+      nums = openCardList.length;
+      if (nums === 2) {
+        countMoves();
+        if (openCardList[0].innerHTML === openCardList[1].innerHTML) {
+          removeElementClasses(openCardList, ["show", "open"]);
+          addElementClasses(openCardList, ["match"]);
+          matchedCardList.push(openCardList[0]);
+          matchedCardList.push(openCardList[1]);
           openCardList = [];
-        }, 500);
+          winGame();
+          console.log(matchedCardList);
+        } else {
+          setTimeout(function() {
+            openCardList[0].classList.remove("open", "show");
+            openCardList[1].classList.remove("open", "show");
+            openCardList = [];
+          }, 260);
+        };
       };
     };
 };
