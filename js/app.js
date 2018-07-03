@@ -46,8 +46,8 @@ let cardList = [
   'fa fa-cube'
 ]
 let shuffleCards = shuffle(cardList);
-let cardElements = document.querySelectorAll('li.card');
 let decks = document.querySelector(".deck");
+let cards = document.querySelector(".card");
 let openCardList = [];
 let matchedCardList = [];
 let nums;
@@ -63,6 +63,8 @@ let movesStars = document.querySelector(".movesStars");
 let totalSeconds = 0;
 let minutes = document.getElementById("minutes");
 let seconds = document.getElementById("seconds");
+let timer = document.getElementById("timer");
+let isTimerRunning = false;
 
 
 //Display cards
@@ -81,14 +83,19 @@ function displayCard() {
 
 //compare the cards (match and unmatch)
 function handleCardOnClick() {
-    console.log(this)
+    console.log(this);
     const thisCard = this;
+    if (isTimerRunning === false) {
+      setTimer();
+      isTimerRunning = true;
+    };
     if (!(thisCard.classList.contains("open", "show"))) {
       thisCard.classList.add("open", "show");
       openCardList.push(thisCard);
       nums = openCardList.length;
       if (nums === 2) {
         countMoves();
+        decks.setAttribute('style', 'pointer-events: none');
         if (openCardList[0].innerHTML === openCardList[1].innerHTML) {
           removeElementClasses(openCardList, ["show", "open"]);
           addElementClasses(openCardList, ["match"]);
@@ -96,12 +103,13 @@ function handleCardOnClick() {
           matchedCardList.push(openCardList[1]);
           openCardList = [];
           winGame();
-          console.log(matchedCardList);
+          decks.setAttribute('style', 'pointer-events: auto');
         } else {
           setTimeout(function() {
             openCardList[0].classList.remove("open", "show");
             openCardList[1].classList.remove("open", "show");
             openCardList = [];
+            decks.setAttribute('style', 'pointer-events: auto');
           }, 260);
         };
       };
@@ -142,10 +150,21 @@ function countMoves () {
 function pad (val) {
   return val > 9 ? val : "0" + val;
 };
-setInterval(function() {
-  seconds.innerHTML = pad(++totalSeconds%60);
-  minutes.innerHTML = pad(parseInt(totalSeconds/60, 10));
-}, 1000);
+
+
+//Start timer
+function setTimer() {
+  myTime = setInterval(function() {
+    seconds.innerHTML = pad(++totalSeconds % 60);
+    minutes.innerHTML = pad(parseInt(totalSeconds / 60, 10));
+  }, 1000);
+};
+
+
+//Stop timer
+function stopTimer() {
+  clearInterval(myTime);
+};
 
 
 //deduct stars when
@@ -178,7 +197,8 @@ function starRemove () {
 //Congratulations Popup
 function winGame() {
   if (matchedCardList.length === 16) {
-    let messageForWinner = document.createTextNode("With " + numMoves + " Moves and " + numStars + " Stars.");
+    stopTimer();
+    let messageForWinner = document.createTextNode("With " + numMoves + " Moves and " + numStars + " Stars." + " It takes " + minutes.innerText + ":" + seconds.innerText + ".");
     movesStars.appendChild(messageForWinner);
     containers.style.display = "none";
     gameOvers.style.display = "none";
@@ -204,7 +224,7 @@ function restartGame() {
   moves.innerText = numMoves;
   location.reload();
   displayCard();
-  console.log(shuffleCards);
+  setTimer();
   removeElementClasses(openCardList, ["show", "open"]);
   removeElementClasses(matchedCardList, ["match"]);
   openCardList = [];
